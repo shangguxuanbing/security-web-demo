@@ -15,8 +15,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .requiresChannel()
-            .antMatchers("/login").requiresSecure()
-            .antMatchers("/**").requiresInsecure()
+            // Only 2 pages free to http acces.
+            .antMatchers("/", "/home").requiresInsecure()
+            .antMatchers("/**").requiresSecure()
+
+            // HTTPS - only for login page.
+//            .antMatchers("/login").requiresSecure()
+//            .antMatchers("/**").requiresInsecure()
             .and()
 
             .authorizeRequests()
